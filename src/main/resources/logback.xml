@@ -1,0 +1,38 @@
+<configuration>
+
+    <property name="HOME_LOG" value="logs/app.log"/>
+
+    <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${HOME_LOG}</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/archived/app.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+
+            <maxFileSize>2MB</maxFileSize>
+            <totalSizeCap>200MB</totalSizeCap>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d %p %c{1.} [%t] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="best.ccg" level="warn" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE-ROLLING"/>
+    </logger>
+
+    <root level="warn">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE-ROLLING"/>
+    </root>
+
+</configuration>

@@ -1,0 +1,21 @@
+<?xml version = '1.0'?>
+<app-settings>
+    <properties>
+        <property key="JBServerErrorLogJob.filepath">license-server-stdout.log</property>
+        <property key="JBServer.reportlink">http://localhost:82/tickets-report.json?token=secret1</property>
+        <property key="JBServer.isHasIdentifiers">0</property>
+        <property key="JBServerConfigFile.filepath">jetbrains_license_sigma.txt</property>
+
+        <!--        <property key="jdbc.driverClassName">org.h2.Driver</property>-->
+        <!--        <property key="jdbc.url">jdbc:h2:file:./data/jbadmin;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE</property>-->
+        <!--        <property key="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>-->
+
+        <property key="jdbc.driverClassName">com.mysql.cj.jdbc.Driver</property>
+        <property key="jdbc.url">jdbc:mysql://localhost/jbadmin?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf8</property>
+        <property key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+
+        <property key="JBServerConfigFile.serverport">81</property>
+
+
+    </properties>
+</app-settings>

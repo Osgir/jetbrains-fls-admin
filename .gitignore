@@ -1,0 +1,9 @@
+/.idea/
+/.mvn/
+**/logs
+/target/
+/uploads/
+/data/
+
+/JbAdminApplication.iml
+/dependency-reduced-pom.xml
