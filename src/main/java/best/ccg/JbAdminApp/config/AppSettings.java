@@ -42,7 +42,7 @@ public class AppSettings {
             appSettingsdriverClassName = AppSettings.getString("jdbc.driverClassName");
             appSettingsDialect = AppSettings.getString("hibernate.dialect");
 
-            appSettingsConfigPort = AppSettings.getInt("JBServerConfigFile.serverport",81);
+            appSettingsConfigPort = AppSettings.getInt("JBServerConfigFile.serverport", 81);
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
@@ -95,7 +95,6 @@ public class AppSettings {
         }
     }
 
-
     public static boolean load(File file) throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
@@ -104,22 +103,30 @@ public class AppSettings {
             throw new NullPointerException();
         }
         NodeList propertiesNL = doc.getDocumentElement().getChildNodes();
-        for (int i = 0; (i < propertiesNL.getLength()); i++) {
-            if (propertiesNL.item(i).getNodeName().equals("properties")) {
-                NodeList propertyList = propertiesNL.item(i).getChildNodes();
-                for (int j = 0; j < propertyList.getLength(); j++) {
-                    NamedNodeMap attributes = propertyList.item(j).getAttributes();
-                    Node n = attributes.getNamedItem("key");
-                    NodeList childs = propertyList.item(j).getChildNodes();
-                    for (int k = 0; k < childs.getLength(); k++) {
-                        if (childs.item(k).getNodeType() == Node.TEXT_NODE) {
-                            put(n.getNodeValue(), childs.item(k).getNodeValue());
+        if (propertiesNL != null) {
+            for (int i = 0; (i < propertiesNL.getLength()); i++) {
+                if (propertiesNL.item(i).getNodeName().equals("properties")) {
+                    NodeList propertyList = propertiesNL.item(i).getChildNodes();
+                    for (int j = 0; j < propertyList.getLength(); j++) {
+                        NamedNodeMap attributes = propertyList.item(j).getAttributes();
+                        if (attributes != null) {
+                            Node n = attributes.getNamedItem("key");
+                            NodeList childs = propertyList.item(j).getChildNodes();
+                            if (childs != null) {
+                                for (int k = 0; k < childs.getLength(); k++) {
+                                    if (childs.item(k).getNodeType() == Node.TEXT_NODE) {
+                                        put(n.getNodeValue(), childs.item(k).getNodeValue());
+                                    }
+                                }
+                            }
                         }
                     }
                 }
             }
+            return true;
+        } else {
+            return false;
         }
-        return true;
     }
 
 }
